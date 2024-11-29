@@ -11,6 +11,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,16 +23,14 @@ public class GraphQLController {
     @Autowired
     private EmpleadoRepository empleadoRepository;
 
-    // Resolver para Query: proyectosPorEmpleado
+    // Resolver para la Query: proyectosPorEmpleado
     @QueryMapping
     public List<Proyecto> proyectosPorEmpleado(@Argument String cedula) {
-
-        System.out.println(cedula);
-
+        System.out.println("Cédula recibida: " + cedula);
         return proyectoRepository.findByEmpleadoCedula(cedula);
     }
 
-    // Resolver para Mutation: registrarProyecto
+    // Resolver para la Mutation: registrarProyecto
     @MutationMapping
     public Proyecto registrarProyecto(
             @Argument String nombre,
@@ -41,13 +40,15 @@ public class GraphQLController {
             @Argument String estado,
             @Argument List<EmpleadoInput> empleados) {
 
-        System.out.println(nombre);
-        System.out.println(descripcion);
-        System.out.println(fechaInicio);
-        System.out.println(fechaFin);
-        System.out.println(estado);
-        System.out.println(empleados);
+        // Imprimir los parámetros recibidos para depurar
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Descripción: " + descripcion);
+        System.out.println("Fecha Inicio: " + fechaInicio);
+        System.out.println("Fecha Fin: " + fechaFin);
+        System.out.println("Estado: " + estado);
+        System.out.println("Empleados: " + empleados);
 
+        // Crear y guardar el proyecto
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre(nombre);
         proyecto.setDescripcion(descripcion);
@@ -66,6 +67,8 @@ public class GraphQLController {
         }).collect(Collectors.toList());
 
         proyecto.setEmpleados(empleadosList);
+
+        // Guardar el proyecto y empleados en la base de datos
         return proyectoRepository.save(proyecto);
     }
 }
