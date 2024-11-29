@@ -26,8 +26,8 @@ public class Proyecto {
     @Column(name = "estado", nullable = false)
     private String estado;
 
-    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
-    private List<Empleado> empleados = new ArrayList<>();
+    @OneToMany(mappedBy = "proyecto")
+    private List<Empleado> empleados;
 
     public Proyecto() {
     }

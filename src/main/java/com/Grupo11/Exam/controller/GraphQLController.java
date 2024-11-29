@@ -11,7 +11,6 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
