@@ -1,0 +1,39 @@
+type Query {
+    proyectosPorEmpleado(cedula: String!): [Proyecto]
+}
+
+type Mutation {
+    registrarProyecto(
+        nombre: String!,
+        descripcion: String!,
+        fechaInicio: String!,
+        fechaFin: String!,
+        estado: String!,
+        empleados: [EmpleadoInput!]!
+    ): Proyecto
+}
+
+input EmpleadoInput {
+    nombre: String!
+    apellido: String!
+    cedula: String!
+    rol: String!
+}
+
+type Empleado {
+    id: ID!
+    nombre: String!
+    apellido: String!
+    cedula: String!
+    rol: String!
+}
+
+type Proyecto {
+    id: ID!
+    nombre: String!
+    descripcion: String!
+    fechaInicio: String!
+    fechaFin: String!
+    estado: String!
+    empleados: [Empleado!]!
+}
